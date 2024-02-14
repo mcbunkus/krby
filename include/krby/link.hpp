@@ -1,9 +1,9 @@
 #pragma once
 
-#include "krby/sources/source.hpp"
-#include "krby/sinks/sink.hpp"
-#include "krby/encoders/encoder.hpp"
 #include "krby/decoders/decoder.hpp"
+#include "krby/encoders/encoder.hpp"
+#include "krby/sinks/sink.hpp"
+#include "krby/sources/source.hpp"
 
 namespace krby
 {
@@ -14,10 +14,14 @@ namespace krby
         source::Source &m_source;
         sink::Sink &m_sink;
 
-    public:
-        Link(source::Source &source, sink::Sink &sink);
-        void record(encoder::Encoder &encoder);
-        void replay(decoder::Decoder &decoder);
+        decoder::Decoder &m_decoder;
+        encoder::Encoder &m_encoder;
+
+      public:
+        Link(source::Source &source, sink::Sink &sink,
+             decoder::Decoder &decoder, encoder::Encoder &encoder);
+
+        void run();
     };
 
 } // namespace krby

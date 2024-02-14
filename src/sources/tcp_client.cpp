@@ -1,8 +1,8 @@
 #include "krby/sources/tcp_client.hpp"
 
-#include <sys/socket.h>
 #include <arpa/inet.h>
 #include <stdexcept>
+#include <sys/socket.h>
 
 namespace krby
 {
@@ -31,11 +31,10 @@ namespace krby
             }
         }
 
-        std::vector<uint8_t> TCPClient::read()
+        std::size_t TCPClient::read(std::vector<uint8_t> &bytes)
         {
             // read from the TCP server
-            std::vector<uint8_t> buffer(4096);
-            ssize_t n = recv(m_fd, buffer.data(), buffer.size(), 0);
+            ssize_t n = recv(m_fd, bytes.data(), bytes.size(), 0);
             if (n == -1)
             {
                 throw std::runtime_error("Failed to read from the socket");
@@ -46,8 +45,7 @@ namespace krby
                 throw std::runtime_error("Connection closed");
             }
 
-            buffer.resize(n);
-            return buffer;
+            return n;
         }
     } // namespace source
 

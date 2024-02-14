@@ -12,7 +12,7 @@ namespace krby
         {
             bool m_newline = false;
 
-        public:
+          public:
             StdoutSink() = default;
             StdoutSink(bool newline);
 

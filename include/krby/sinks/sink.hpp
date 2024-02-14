@@ -1,7 +1,7 @@
 #pragma once
 
-#include <vector>
 #include <cstdint>
+#include <vector>
 
 namespace krby
 {
@@ -9,11 +9,11 @@ namespace krby
     {
         class Sink
         {
-        public:
+          public:
             virtual void write(std::vector<uint8_t> bytes) = 0;
             virtual ~Sink() = default;
         };
 
-    } // namespace krby
+    } // namespace sink
 
-} // namespace sink
+} // namespace krby

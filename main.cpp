@@ -1,8 +1,8 @@
-#include "krby/krby.hpp"
-#include "krby/sources/tcp_client.hpp"
-#include "krby/sinks/stdout.hpp"
-#include "krby/encoders/hex.hpp"
+#include "krby/decoders/raw.hpp"
 #include "krby/encoders/timestamped_hex.hpp"
+#include "krby/krby.hpp"
+#include "krby/sinks/stdout.hpp"
+#include "krby/sources/tcp_client.hpp"
 
 using namespace krby;
 
@@ -11,9 +11,10 @@ int main()
     source::TCPClient client{"0.0.0.0", 8080};
     sink::StdoutSink stdoutSink{true};
 
-    Link link{client, stdoutSink};
-
+    decoder::Raw rawDecoder{};
     encoder::TimeStampedHexEncoder encoder{};
 
-    link.record(encoder);
+    Link link{client, stdoutSink, rawDecoder, encoder};
+
+    link.run();
 }

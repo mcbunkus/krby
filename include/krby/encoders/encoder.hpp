@@ -1,7 +1,9 @@
 #pragma once
 
-#include <vector>
 #include <cstdint>
+#include <vector>
+
+#include "krby/sinks/sink.hpp"
 
 namespace krby
 {
@@ -9,8 +11,10 @@ namespace krby
     {
         class Encoder
         {
-        public:
-            virtual std::vector<uint8_t> encode(std::vector<uint8_t> bytes) = 0;
+          public:
+            virtual void encode(sink::Sink &sink,
+                                const std::vector<uint8_t> &bytes) = 0;
+
             virtual ~Encoder() = default;
         };
 

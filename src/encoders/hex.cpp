@@ -3,11 +3,11 @@
 
 namespace krby
 {
-
     namespace encoder
     {
 
-        std::vector<uint8_t> HexEncoder::encode(std::vector<uint8_t> bytes)
+        void HexEncoder::encode(sink::Sink &sink,
+                                const std::vector<uint8_t> &bytes)
         {
             std::vector<uint8_t> encoded;
             for (uint8_t byte : bytes)
@@ -17,7 +17,8 @@ namespace krby
                 encoded.push_back(hex[0]);
                 encoded.push_back(hex[1]);
             }
-            return encoded;
+
+            sink.write(encoded);
         }
 
     } // namespace encoder

@@ -2,46 +2,27 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <vector>
 
 namespace krby
 {
 
-    Link::Link(source::Source &source, sink::Sink &sink) : m_source(source), m_sink(sink)
+    Link::Link(source::Source &source, sink::Sink &sink,
+               decoder::Decoder &decoder, encoder::Encoder &encoder)
+        : m_source(source), m_sink(sink), m_decoder(decoder), m_encoder(encoder)
     {
     }
 
-    void Link::record(encoder::Encoder &encoder)
+    void Link::run()
     {
-
         while (true)
         {
 
             // read from the source, encode, and write to the sink
             try
             {
-                std::vector<uint8_t> bytes = m_source.read();
-                std::vector<uint8_t> encoded = encoder.encode(bytes);
-                m_sink.write(encoded);
-            }
-            catch (const std::runtime_error &e)
-            {
-                std::cerr << "Error: " << e.what() << std::endl;
-                break;
-            }
-        }
-    }
-
-    void Link::replay(decoder::Decoder &decoder)
-    {
-
-        while (true)
-        {
-            // read from the source, decode, and write to the sink
-            try
-            {
-                std::vector<uint8_t> bytes = m_source.read();
-                std::vector<uint8_t> decoded = decoder.decode(bytes);
-                m_sink.write(decoded);
+                std::vector<uint8_t> bytes = m_decoder.decode(m_source);
+                m_encoder.encode(m_sink, bytes);
             }
             catch (const std::runtime_error &e)
             {

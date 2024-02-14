@@ -7,6 +7,7 @@ lib_inc = include_directories('include')
 lib_src = files(
     'src/encoders/hex.cpp',
     'src/encoders/timestamped_hex.cpp',
+    'src/decoders/raw.cpp',
     'src/link.cpp',
     'src/sinks/stdout.cpp',
     'src/sources/tcp_client.cpp',

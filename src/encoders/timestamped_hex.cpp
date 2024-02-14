@@ -1,6 +1,6 @@
 #include "krby/encoders/timestamped_hex.hpp"
-#include <cstdio>
 #include <chrono>
+#include <cstdio>
 
 namespace krby
 {
@@ -8,15 +8,18 @@ namespace krby
     namespace encoder
     {
 
-        std::vector<uint8_t> TimeStampedHexEncoder::encode(std::vector<uint8_t> bytes)
+        void TimeStampedHexEncoder::encode(sink::Sink &sink,
+                                           const std::vector<uint8_t> &bytes)
         {
             std::vector<uint8_t> encoded;
 
-            // get the current date and time and convert it to a human readable string
+            // get the current date and time and convert it to a human readable
+            // string
             auto now = std::chrono::system_clock::now();
             auto now_t = std::chrono::system_clock::to_time_t(now);
             char timestamp[20];
-            strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", std::localtime(&now_t));
+            strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S",
+                     std::localtime(&now_t));
 
             // convert the string to bytes and append them to encoded
             for (char c : timestamp)
@@ -33,7 +36,8 @@ namespace krby
                 encoded.push_back(hex[0]);
                 encoded.push_back(hex[1]);
             }
-            return encoded;
+
+            sink.write(encoded);
         }
 
     } // namespace encoder

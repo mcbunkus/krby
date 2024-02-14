@@ -16,11 +16,11 @@ namespace krby
         {
             int m_fd;
 
-        public:
+          public:
             TCPClient(const std::string &hostname, uint16_t port);
-            std::vector<uint8_t> read() override;
+            std::size_t read(std::vector<uint8_t> &bytes) override;
         };
 
-    } // namespace sourc
+    } // namespace source
 
 } // namespace krby

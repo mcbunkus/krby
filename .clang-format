@@ -1,0 +1,7 @@
+﻿---
+BreakBeforeBraces: Allman
+IndentWidth: '4'
+TabWidth: '4'
+NamespaceIndentation: All
+
+...

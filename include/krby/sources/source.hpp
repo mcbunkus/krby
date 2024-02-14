@@ -1,7 +1,7 @@
 #pragma once
 
-#include <vector>
 #include <cstdint>
+#include <vector>
 
 namespace krby
 {
@@ -10,11 +10,11 @@ namespace krby
 
         class Source
         {
-        public:
-            virtual std::vector<uint8_t> read() = 0;
+          public:
+            virtual std::size_t read(std::vector<uint8_t> &bytes) = 0;
             virtual ~Source() = default;
         };
 
-    } // namespace krby
+    } // namespace source
 
-} // namespace source
+} // namespace krby

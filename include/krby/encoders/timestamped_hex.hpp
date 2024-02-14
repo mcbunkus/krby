@@ -8,8 +8,10 @@ namespace krby
     {
         class TimeStampedHexEncoder : public Encoder
         {
-        public:
-            std::vector<uint8_t> encode(std::vector<uint8_t> bytes) override;
+          public:
+            void encode(sink::Sink &sink,
+                        const std::vector<uint8_t> &bytes) override;
+
             ~TimeStampedHexEncoder() = default;
         };
 
